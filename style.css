@@ -7,13 +7,13 @@
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
-  padding: 0;
+  padding: 1rem;
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .container {
@@ -28,9 +28,15 @@ body {
 }
 
 h1 {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.25rem;
   font-size: 2rem;
   color: #fff;
+}
+
+.subtitle {
+  margin: 0 0 1.5rem;
+  opacity: 0.9;
+  font-size: 1rem;
 }
 
 .scoreboard {
@@ -72,10 +78,26 @@ h1 {
 #computer-selection {
   font-size: 3rem;
   margin-top: 0.5rem;
+  display: inline-block;
+}
+
+#player-selection.pop,
+#computer-selection.pop {
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.6); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 
 .buttons {
   margin: 1.5rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3rem;
 }
 
 .btn {
@@ -90,15 +112,41 @@ h1 {
   transition: transform 0.2s, background 0.3s;
 }
 
-.btn:hover {
+.btn:hover:not(:disabled) {
   transform: translateY(-3px);
   background: #00b89c;
+}
+
+.btn:focus-visible,
+.reset-btn:focus-visible,
+.popup-content button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .result {
   font-size: 1.3rem;
   margin: 1rem 0;
   min-height: 2rem;
+  font-weight: 600;
+}
+
+.result.win {
+  color: #7CFFB2;
+}
+
+.result.lose {
+  color: #FFB3B3;
+}
+
+.result.tie {
+  color: #FFE08A;
 }
 
 .reset-btn {
@@ -119,7 +167,7 @@ h1 {
 
 /* Popup */
 .winner-popup {
-  display: none;
+  display: flex;
   position: fixed;
   top: 0;
   left: 0;
@@ -128,6 +176,19 @@ h1 {
   background: rgba(0,0,0,0.6);
   justify-content: center;
   align-items: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.winner-popup[hidden] {
+  display: flex;
+}
+
+.winner-popup.show {
+  opacity: 1;
+  visibility: visible;
 }
 
 .popup-content {
@@ -136,6 +197,13 @@ h1 {
   padding: 2rem;
   border-radius: 15px;
   text-align: center;
+  transform: scale(0.9);
+  transition: transform 0.25s ease;
+  max-width: 90vw;
+}
+
+.winner-popup.show .popup-content {
+  transform: scale(1);
 }
 
 .popup-content h2 {
@@ -150,4 +218,38 @@ h1 {
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.25rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .score {
+    width: 46%;
+    padding: 0.75rem;
+  }
+
+  .btn {
+    flex: 1 1 100%;
+    padding: 0.7rem 1rem;
+  }
+
+  #player-selection,
+  #computer-selection {
+    font-size: 2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

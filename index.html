@@ -7,9 +7,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
+  <main class="container">
     <h1>Rock Paper Scissors</h1>
-    <div class="scoreboard">
+    <p class="subtitle">First to 5 wins!</p>
+    <div class="scoreboard" aria-live="polite">
       <div class="score">
         <h2>Player</h2>
         <p id="player-score">0</p>
@@ -22,26 +23,26 @@
     <div class="choices">
       <div class="choice">
         <h3>You</h3>
-        <div id="player-selection">❔</div>
+        <div id="player-selection" role="img" aria-label="Your selection: none yet">❔</div>
       </div>
       <div class="choice">
         <h3>Computer</h3>
-        <div id="computer-selection">❔</div>
+        <div id="computer-selection" role="img" aria-label="Computer selection: none yet">❔</div>
       </div>
     </div>
     <div class="buttons">
-      <button class="btn" id="rock">🪨 Rock</button>
-      <button class="btn" id="paper">📄 Paper</button>
-      <button class="btn" id="scissors">✂️ Scissors</button>
+      <button class="btn" id="rock" aria-label="Choose rock">🪨 Rock</button>
+      <button class="btn" id="paper" aria-label="Choose paper">📄 Paper</button>
+      <button class="btn" id="scissors" aria-label="Choose scissors">✂️ Scissors</button>
     </div>
-    <p class="result">Make your move!</p>
+    <p class="result" aria-live="polite">Make your move!</p>
     <button class="reset-btn" id="reset">🔁 Reset Game</button>
-  </div>
+  </main>
 
-  <div class="winner-popup" id="popup">
+  <div class="winner-popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="winner-text" hidden>
     <div class="popup-content">
       <h2 id="winner-text"></h2>
-      <button onclick="resetGame()">Play Again</button>
+      <button id="play-again">Play Again</button>
     </div>
   </div>
 
